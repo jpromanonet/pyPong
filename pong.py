@@ -66,11 +66,11 @@ while True:
             player2_controls_text = FONT_SMALL.render("Player 2: UP and DOWN arrow keys", True, WHITE)
             start_text = FONT_SMALL.render("Press any key to start playing", True, WHITE)
 
-            screen.blit(title_text, (WIDTH // 4, HEIGHT // 4))
-            screen.blit(controls_text, (WIDTH // 4, HEIGHT // 2))
-            screen.blit(player1_controls_text, (WIDTH // 4, HEIGHT // 2 + 40))
-            screen.blit(player2_controls_text, (WIDTH // 4, HEIGHT // 2 + 80))
-            screen.blit(start_text, (WIDTH // 4, HEIGHT // 2 + 160))
+            screen.blit(title_text, (WIDTH // 8, HEIGHT // 6))
+            screen.blit(controls_text, (WIDTH // 8, HEIGHT // 2))
+            screen.blit(player1_controls_text, (WIDTH // 8, HEIGHT // 2 + 40))
+            screen.blit(player2_controls_text, (WIDTH // 8, HEIGHT // 2 + 80))
+            screen.blit(start_text, (WIDTH // 8, HEIGHT // 2 + 160))
 
             pygame.display.flip()
 
@@ -121,22 +121,23 @@ while True:
             if player1_score == 21 or player2_score == 21:
                 game_over = True
 
-    # Clear the screen
-    screen.fill((0, 0, 0))
+    # Clear the screen and show the game
+    if game_start and not game_over:
+        screen.fill((0, 0, 0))
 
-    # Draw paddles and ball
-    pygame.draw.rect(screen, WHITE, pygame.Rect(player1_pos[0], player1_pos[1], PADDLE_WIDTH, PADDLE_HEIGHT))
-    pygame.draw.rect(screen, WHITE, pygame.Rect(player2_pos[0], player2_pos[1], PADDLE_WIDTH, PADDLE_HEIGHT))
-    pygame.draw.ellipse(screen, WHITE, pygame.Rect(ball_pos[0] - BALL_RADIUS, ball_pos[1] - BALL_RADIUS, BALL_RADIUS * 2, BALL_RADIUS * 2))
+        # Draw paddles and ball
+        pygame.draw.rect(screen, WHITE, pygame.Rect(player1_pos[0], player1_pos[1], PADDLE_WIDTH, PADDLE_HEIGHT))
+        pygame.draw.rect(screen, WHITE, pygame.Rect(player2_pos[0], player2_pos[1], PADDLE_WIDTH, PADDLE_HEIGHT))
+        pygame.draw.ellipse(screen, WHITE, pygame.Rect(ball_pos[0] - BALL_RADIUS, ball_pos[1] - BALL_RADIUS, BALL_RADIUS * 2, BALL_RADIUS * 2))
 
-    # Draw the middle line
-    pygame.draw.line(screen, WHITE, (WIDTH // 2, 0), (WIDTH // 2, HEIGHT), 1)
+        # Draw the middle line
+        pygame.draw.line(screen, WHITE, (WIDTH // 2, 0), (WIDTH // 2, HEIGHT), 1)
 
-    # Draw scores
-    player1_text = FONT_SMALL.render("Player 1: " + str(player1_score), True, WHITE)
-    player2_text = FONT_SMALL.render("Player 2: " + str(player2_score), True, WHITE)
-    screen.blit(player1_text, (WIDTH // 4, 10))
-    screen.blit(player2_text, (3 * WIDTH // 4 - 20, 10))
+        # Draw scores
+        player1_text = FONT_SMALL.render("Player 1: " + str(player1_score), True, WHITE)
+        player2_text = FONT_SMALL.render("Player 2: " + str(player2_score), True, WHITE)
+        screen.blit(player1_text, (WIDTH // 4, 10))
+        screen.blit(player2_text, (3 * WIDTH // 4 - 20, 10))
 
     # Draw game-over screen if the game is over
     if game_over:
