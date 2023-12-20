@@ -20,8 +20,8 @@ pygame.display.set_caption("Classic Pong")
 # Initialize game variables
 ball_pos = [WIDTH // 2, HEIGHT // 2]
 ball_speed = [2 * random.choice((1, -1)), 2 * random.choice((1, -1))]
-player_pos = [0, HEIGHT // 2 - PADDLE_HEIGHT // 2]
-computer_pos = [WIDTH - PADDLE_WIDTH, HEIGHT // 2 - PADDLE_HEIGHT // 2]
+player_pos = [10, HEIGHT // 2 - PADDLE_HEIGHT // 2]
+computer_pos = [WIDTH - PADDLE_WIDTH - 10, HEIGHT // 2 - PADDLE_HEIGHT // 2]
 paddle_speed = 5
 
 # Scores
@@ -85,12 +85,16 @@ while True:
         # Check for scoring
         if ball_pos[0] <= 0:
             computer_score += 1
-            if computer_score == 21:
-                game_over = True
+            ball_pos = [WIDTH // 2, HEIGHT // 2]  # Reset the ball position
+            ball_speed = [2 * random.choice((1, -1)), 2 * random.choice((1, -1))]  # Reset the ball speed
         elif ball_pos[0] >= WIDTH - BALL_RADIUS:
             player_score += 1
-            if player_score == 21:
-                game_over = True
+            ball_pos = [WIDTH // 2, HEIGHT // 2]  # Reset the ball position
+            ball_speed = [2 * random.choice((1, -1)), 2 * random.choice((1, -1))]  # Reset the ball speed
+
+        # Check for winning condition
+        if player_score == 21 or computer_score == 21:
+            game_over = True
 
     # Clear the screen
     screen.fill((0, 0, 0))
